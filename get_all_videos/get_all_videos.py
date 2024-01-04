@@ -1,15 +1,13 @@
 # Built-in.
 import os
 import csv
-import json
 
-# Google Cloud API.
+# Google API.
 import googleapiclient.errors
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 
-# DEVELOPER_KEY = 'YOUR_API_KEY'
-DEVELOPER_KEY = 'AIzaSyDEXF1aVan3YHibkg0_eiYwXIg_2n28ZoM'
+DEVELOPER_KEY = 'YOUR_API_KEY'
 
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
@@ -18,7 +16,7 @@ API_VERSION = 'v3'
 youtube = build(API_SERVICE_NAME, API_VERSION, developerKey=DEVELOPER_KEY)
 
 # Send the request to YouTube Data API v3.
-channel_id = 'UC7yMBOeBTcPhlTdI-PS-_Xg'  # The id of the channel.
+channel_id = 'channel id'  # The id of the channel.
 part = 'contentDetails'
 fields = {
     'id': channel_id
