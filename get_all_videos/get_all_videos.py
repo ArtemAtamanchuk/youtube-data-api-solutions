@@ -2,30 +2,24 @@
 import os
 import csv
 
-# Google API.
+# Google Cloud API.
 import googleapiclient.errors
 import google_auth_oauthlib.flow
 from googleapiclient.discovery import build
 
-DEVELOPER_KEY = 'YOUR_API_KEY'
-
+# Gloabals.
+DEVELOPER_KEY = 'YOUR_DEV_KEY'
 API_SERVICE_NAME = 'youtube'
 API_VERSION = 'v3'
+CHANNEL_ID = 'CHANNEL_ID'
 
 # Create the service object.
 youtube = build(API_SERVICE_NAME, API_VERSION, developerKey=DEVELOPER_KEY)
 
-# Send the request to YouTube Data API v3.
-channel_id = 'channel id'  # The id of the channel.
-part = 'contentDetails'
-fields = {
-    'id': channel_id
-    }
-
 # Get the id of the playlist has all published videos of the channel.
-uploaded_videos_playlist_id = 'UU' + channel_id[2:]
+uploaded_videos_playlist_id = 'UU' + CHANNEL_ID[2:]
 
-# Make the data list of the uploaded videos from that playlist.
+# Make the request and the data list of the uploaded videos from that playlist.
 videos = []    
 part = 'snippet'
 fields = {
@@ -40,8 +34,8 @@ i = 0
 for item in response['items']:
     videos.append([
         i+1,
-        item['snippet']['title'],
         f"https://www.youtube.com/watch?v={item['snippet']['resourceId']['videoId']}",
+        item['snippet']['title'],
         f"{item['snippet']['publishedAt']}"
         ])
     print(videos[i])
@@ -59,21 +53,29 @@ while i != playlist_size:
     for item in response['items']:
         videos.append([
             i+1,
-            item['snippet']['title'],
             f"https://www.youtube.com/watch?v={item['snippet']['resourceId']['videoId']}",
+            item['snippet']['title'],
             f"{item['snippet']['publishedAt']}"
             ])
         print(videos[i])
         if i == playlist_size:
             break        
         i += 1
+
+# Get the channel's title.
+fields = {
+    'id': CHANNEL_ID
+    }
+request = youtube.channels().list(part=part, **fields)
+channel_title = request.execute()['items'][0]['snippet']['title']
         
 youtube.close()  # Close the socket.
 
-with (open('list_videos.csv', 'w',
+# Make the file has the output data.
+with (open(f'The List Videos From {channel_title}.csv', 'w',
            newline='', encoding='utf-16') as list_videos): 
     writer = csv.writer(list_videos, delimiter=',')
-    videos.append(['#', 'Title', 'URL', 'Published'])
+    videos.append(['#', 'URL', 'Title', 'Published'])
     
     for video in videos[::-1]:
         writer.writerow(video)
