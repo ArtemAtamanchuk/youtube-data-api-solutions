@@ -7,6 +7,6 @@ To get the channel id you can go to the main page of the channel, e. g., [https:
 
 Of course, you can do all of this through a variety of web applications, such as [https://ytubetool.com/tools/youtube-channel-id](https://ytubetool.com/tools/youtube-channel-id).
 
-It is all: you don't need to do something. Run the script and you will get a csv file (its name is `The List Videos From "the channel's title".csv`) wich has titles, URLs, and publish dates of all the videos of the channel. These items will be listed in order from oldest to newest.
+It is all: you don't need to do something. Run the script and you will get a csv file (its name is `The list videos from "the channel's title".csv`) wich has titles, URLs, and publish dates of all the videos of the channel. These items will be listed in order from oldest to newest.
 
 You may notice that the video information is retrieved by working with a playlist containing all published videos. And you can access this playlist. You just need to replace the second character of the id of this channel (it is the `C` character) with the `U` character, insert the obtained combination into the following HTTP request: `https://www.youtube.com/playlist?list=` and then click on it and you will get to this playlist. Try it.
