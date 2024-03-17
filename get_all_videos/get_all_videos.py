@@ -72,7 +72,7 @@ channel_title = request.execute()['items'][0]['snippet']['title']
 youtube.close()  # Close the socket.
 
 # Make the file has the output data.
-with (open(f'The List Videos From {channel_title}.csv', 'w',
+with (open(f'The list videos from {channel_title}.csv', 'w',
            newline='', encoding='utf-16') as list_videos): 
     writer = csv.writer(list_videos, delimiter=',')
     videos.append(['#', 'URL', 'Title', 'Published'])
